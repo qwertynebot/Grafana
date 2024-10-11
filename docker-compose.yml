@@ -19,8 +19,8 @@ services:
     volumes:
       - prom-data:/prometheus
       - prom-configs:/etc/prometheus
-      - /your/path/alert.rules.yml:/alertmanager/alert.rules.yml
-      - /your/path/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /var/lib/jenkins/workspace/Grafana/alert.rules.yml:/alertmanager/alert.rules.yml
+      - /var/lib/jenkins/workspace/Grafana/prometheus.yml:/etc/prometheus/prometheus.yml
   node-exporter:
     image: prom/node-exporter:v1.8.1
     ports:
@@ -54,7 +54,7 @@ services:
     networks:
       - loki
     volumes:
-      - /your/path/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - /var/lib/jenkins/workspace/Grafana/alertmanager.yml:/etc/alertmanager/alertmanager.yml
   snmp-exporter:
     image: quay.io/prometheus/snmp-exporter
     ports:
