@@ -29,7 +29,7 @@ pipeline {
         stage('Build and Run') {
             steps {
                 sh '''
-                cd /home/ubntu/grafan/ 
+                cd /home/ubntu/grafan
                 sudo docker swarm init
                 sudo docker compose up -d
                 
