@@ -1,11 +1,11 @@
 pipeline {
     agent any
     environment {
-        TELEPUSH_TOKEN = '63b28a'
+        TELEPUSH_TOKEN = '2f10a2'
         ALERTMANAGER_YML_FILE = 'alertmanager.yml'
-        ALERTMANAGER_YML_PATH = '/var/lib/jenkins/workspace/exam2/alertmanager.yml'
+        ALERTMANAGER_YML_PATH = '/home/ubuntu/grafan/alertmanager.yml'
         ALERT_RULES_YML_FILE = 'alert.rules.yml'
-        ALERT_RULES_YML_PATH = '/var/lib/jenkins/workspace/exam2/alert.rules.yml'
+        ALERT_RULES_YML_PATH = '/home/ubuntu/grafan/alert.rules.yml'
     }
 
     stages {
@@ -29,7 +29,7 @@ pipeline {
         stage('Build and Run') {
             steps {
                 sh '''
-                cd /var/lib/jenkins/workspace/exam2/ 
+                cd /home/ubntu/grafan/ 
                 sudo docker swarm init
                 sudo docker compose up -d
                 
