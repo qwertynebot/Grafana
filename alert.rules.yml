@@ -1,0 +1,77 @@
+groups:
+  - name: alert.rules
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          description: "Server down {{ $labels.instance }} or service {{ $labels.job }}"
+          instancename: "{{ $labels.instance }}"
+          summary: "Instance down"
+
+  - name: ContainerHealthAlerts
+    rules:
+      - alert: CadvisorContainerDown
+        expr: up{job="cadvisor"} == 0
+        labels:
+          severity: 'critical'
+        annotations:
+          summary: 'Alert: Cadvisor container is down'
+          description: 'The Cadvisor container is down or not responding.'
+
+  - name: cpu_alerts
+    rules:
+      - alert: HighCpuLoad
+        expr: sum(rate(node_cpu_seconds_total{mode="system"}[5m])) by (instance) > 0.85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU Load"
+          description: "CPU on {{ $labels.instance }} has exceeded 85% for the last 5 minutes."
+
+  - name: service_availability
+    rules:
+      - alert: ServiceDown
+        expr: up{job="your_service"} == 0
+        for: 15s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service Down"
+          description: "Service {{ $labels.job }} on {{ $labels.instance }} has been down."
+
+  - name: docker_alerts
+    rules:
+      - alert: DockerContainerDown
+        expr: absent(container_memory_usage_bytes{container_name="your_container_name"})
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Docker Container Down"
+          description: "Container {{ $labels.container_name }} on {{ $labels.instance }} has been down for more than 5 minutes."
+
+  - name: elk_alerts
+    rules:
+      - alert: ELKStackDown
+        expr: up{job="elk"} == 0
+        for: 15s
+        labels:
+          severity: critical
+        annotations:
+          summary: "ELK Stack Down"
+          description: "ELK Stack on {{ $labels.instance }} has been down."
+
+  - name: memory_alerts
+    rules:
+      - alert: HighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Memory Usage"
+          description: "Memory usage on {{ $labels.instance }} has exceeded 80% in the last 5 minutes."
