@@ -3,15 +3,15 @@ pipeline {
     environment {
         TELEPUSH_TOKEN = '2f10a2'
         ALERTMANAGER_YML_FILE = 'alertmanager.yml'
-        ALERTMANAGER_YML_PATH = '/home/ubuntu/grafan/alertmanager.yml'
+        ALERTMANAGER_YML_PATH = '/var/lib/jenkins/workspace/Grafana/alertmanager.yml'  // Оновлений шлях
         ALERT_RULES_YML_FILE = 'alert.rules.yml'
-        ALERT_RULES_YML_PATH = '/home/ubuntu/grafan/alert.rules.yml'
+        ALERT_RULES_YML_PATH = '/var/lib/jenkins/workspace/Grafana/alert.rules.yml'   // Оновлений шлях
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                // Якщо використовуєте Git SCM, клонування відбувається автоматично, тут можна додати додаткові дії
+                // Використання Git SCM для автоматичного клонування
                 checkout scm
             }
         }
@@ -36,7 +36,7 @@ pipeline {
         stage('Build and Run') {
             steps {
                 sh '''
-                cd /home/ubuntu/grafan
+                cd /var/lib/jenkins/workspace/Grafana
                 sudo docker swarm init
                 sudo docker compose up -d
                 '''
