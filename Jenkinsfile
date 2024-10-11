@@ -27,8 +27,8 @@ pipeline {
                     // Оновлюємо docker-compose.yml з правильними шляхами
                     def dockerComposeFilePath = 'docker-compose.yml'
                     def dockerComposeContent = readFile(file: dockerComposeFilePath)
-                    dockerComposeContent = dockerComposeContent.replace('/your/path/alertmanager.yml', ALERTMANAGER_YML_PATH)
-                    dockerComposeContent = dockerComposeContent.replace('/your/path/alert.rules.yml', ALERT_RULES_YML_PATH)
+                    dockerComposeContent = dockerComposeContent.replace('/var/lib/jenkins/workspace/Grafana/alertmanager.yml', ALERTMANAGER_YML_PATH)
+                    dockerComposeContent = dockerComposeContent.replace('/var/lib/jenkins/workspace/Grafana/alert.rules.yml', ALERT_RULES_YML_PATH)
                     writeFile(file: dockerComposeFilePath, text: dockerComposeContent)
                 }
             }
