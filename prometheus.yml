@@ -1,0 +1,32 @@
+global:
+  scrape_interval: 15s  # Інтервал збору метрик
+
+scrape_configs:
+  # Налаштування для Prometheus сервера
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['prometheus:9090']  # Збір метрик з самого Prometheus через ім'я контейнера
+
+  # Налаштування для Node Exporter
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']  # Збір метрик з Node Exporter через ім'я контейнера
+
+  # Налаштування для cAdvisor
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8081']  # Збір метрик з cAdvisor через ім'я контейнера (моніторинг контейнерів)
+
+  # Налаштування для SNMP Exporter (додати, якщо потрібно)
+  - job_name: 'snmp-exporter'
+    static_configs:
+      - targets: ['snmp-exporter:9116']  # Збір метрик з SNMP Exporter через ім'я контейнера
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['alertmanager:9093']  # Налаштування для Alertmanager через ім'я контейнера
+
+rule_files:
+  # Вкажіть шлях до файлів з правилами для алертів
+  - '/etc/prometheus/alert.rules.yml'
