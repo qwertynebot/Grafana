@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        TELEPUSH_TOKEN = '2f10a2'
+        TELEPUSH_TOKEN = '*'
         ALERTMANAGER_YML_FILE = 'alertmanager.yml'
         ALERTMANAGER_YML_PATH = '/var/lib/jenkins/workspace/Grafana/alertmanager.yml'  // Оновлений шлях
         ALERT_RULES_YML_FILE = 'alert.rules.yml'
