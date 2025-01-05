@@ -15,7 +15,7 @@ scrape_configs:
   # Налаштування для cAdvisor
   - job_name: 'cadvisor'
     static_configs:
-      - targets: ['13.53.113.64:8081']  # Збір метрик з cAdvisor через ім'я контейнера (моніторинг контейнерів)
+      - targets: [':8081']  # Збір метрик з cAdvisor через ім'я контейнера (моніторинг контейнерів)
 
   # Налаштування для SNMP Exporter (додати, якщо потрібно)
   - job_name: 'snmp-exporter'
@@ -25,12 +25,12 @@ scrape_configs:
   # Налаштування для Cluster
   - job_name: 'Cluster'
     static_configs:
-      - targets: ['a1360088d3ee44940ba4a4aa29192312-1181809218.eu-north-1.elb.amazonaws.com:9100']  # Збір метрик EKS
+      - targets: [':9100']  # Збір метрик EKS
 
   # Налаштування для ELK
   - job_name: 'ELK'
     static_configs:
-      - targets: ['16.170.51.66:9100']  # Збір метрик ELK
+      - targets: [':9100']  # Збір метрик ELK
 
 alerting:
   alertmanagers:
